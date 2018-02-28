@@ -16,8 +16,8 @@ int main()
 	int menuselect = 0;
 	while (menuselect != -1)
 	{
-		cout << "Luca's Ultimate Bot" << endl << endl;
-		cout << "Menu" << endl << "1.Select Bot" << endl << "2.Change Settings" << endl << "3.Exit" << endl;
+		cout << "Luca's" << endl << endl;
+		cout << "Menu" << endl << "1.Select" << endl << "2.Change Settings" << endl << "3.Exit" << endl;
 		cin >> menuselect;
 
 		if (menuselect == 1)
@@ -26,7 +26,7 @@ int main()
 			{
 				menuselect = 0;
 				system("cls");
-				cout << "1.Alcher" << endl << "2.Combat" << endl << "3.Woodcutting" << endl << "4.Fishing" << endl << "5.Previous Menu" << endl;
+				cout << "1.A" << endl << "2.C" << endl << "3.W" << endl << "4.F" << endl << "5.Previous Menu" << endl;
 				cin >> menuselect;
 				if (menuselect == 1)
 				{
@@ -112,7 +112,7 @@ void clicker()
 	while (select != -10)
 	{
 		system("cls");
-		cout << "1.Start Clicker" << endl <<"2.Check points" << endl << "3.Delete points" << endl <<"4.Main Menu" << endl;
+		cout << "1.Start" << endl <<"2.Check points" << endl << "3.Delete points" << endl <<"4.Main Menu" << endl;
 		cin >> select;
 		infile.open("SavedPoints.dat");
 		int counter = 0;
