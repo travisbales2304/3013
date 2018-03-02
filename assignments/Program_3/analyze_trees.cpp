@@ -33,7 +33,7 @@ int main()
 		{
 			a.insert(adjectives[x]);
 		}
-		cout << "1/10" << endl;
+		//cout << "1/10" << " " << x << endl;
 	}
 	for (int x = 0; x < 50000; x++)
 	{
@@ -45,7 +45,7 @@ int main()
 		{
 			a.insert(nouns[x]);
 		}
-		cout << "2/10" << endl;
+		//cout << "2/10"<< " " << x << endl;
 	}
 	for (int x = 0; x < 12000; x++)
 	{
@@ -57,7 +57,7 @@ int main()
 		{
 			a.insert(verbs[x]);
 		}
-		cout << "3/10" << endl;
+		//cout << "3/10"<< " " << x << endl;
 	}
 	for (int x = 0; x < 3000; x++)
 	{
@@ -69,7 +69,7 @@ int main()
 		{
 			a.insert(adverbs[x]);
 		}
-		cout << "4/10" << endl;
+		//cout << "4/10" << endl;
 	}
 	for (int x = 0; x < 5000; x++)
 	{
@@ -81,7 +81,7 @@ int main()
 		{
 			a.insert(animals[x]);
 		}
-		cout << "5/10" << endl;
+		//cout << "5/10" << endl;
 	}
 
 
@@ -95,7 +95,7 @@ int main()
 		{
 			b.insert(adjectives[x]);
 		}
-		cout << "6/10" << endl;
+		//cout << "6/10" << " " << x << endl;
 	}
 	for (int x = 0; x < 50000; x++)
 	{
@@ -107,7 +107,7 @@ int main()
 		{
 			b.insert(nouns[x]);
 		}
-		cout << "7/10" << endl;
+		//cout << "7/10" << " " << x << endl;
 	}
 	for (int x = 0; x < 12000; x++)
 	{
@@ -119,7 +119,7 @@ int main()
 		{
 			b.insert(verbs[x]);
 		}
-		cout << "8/10" << endl;
+		//cout << "8/10"<< " " << x << endl;
 	}
 	for (int x = 0; x < 3000; x++)
 	{
@@ -131,7 +131,7 @@ int main()
 		{
 			b.insert(adverbs[x]);
 		}
-		cout << "9/10" << endl;
+		//cout << "9/10" << endl;
 	}
 	for (int x = 0; x < 5000; x++)
 	{
@@ -143,8 +143,14 @@ int main()
 		{
 			b.insert(animals[x]);
 		}
-		cout << "10/10" << endl;
+		//cout << "10/10" << endl;
 	}
+
+	//delete nouns;
+	//delete adjectives;
+	//delete adverbs;
+	//delete animals;
+	//delete verbs;
 
 	string data[5];
 	infile.open("numofwords.txt");
@@ -159,26 +165,33 @@ int main()
 	int avlcomps = 0;
 	string word;
 
+	outfile.open("analysis.out");
+
 	while (infile)
 	{
 		infile >> word;
 		avlcomps += a.search(word);
-		cout << "in avl tree" << endl;
+		//cout << "in avl tree" << endl;
 	}
 	outfile << "AVL Comparisons: " << avlcomps << endl;
+	infile.close();
 
-
+	infile.open("analysis.out");
 	int bstcomps = 0;
 	string word2;
 	while (infile)
 	{
 		infile >> word2;
 		bstcomps += b.search(word2);
-		cout << "in BST tree" << endl;
+		//cout << "in BST tree" << endl;
 	}
 	infile.close();
 
 	outfile << "BST Comparisons: " << bstcomps << endl;
+
+	outfile << "Number of Adjectives: " << data[0] << endl << "Number of Nouns " << data[1] << endl << "Number of Verbs " << data[2] << endl;
+	outfile << "Number of adverbs " << data[3] << endl << "Number of Animals " << endl;
+	outfile.close();
 	
 
 
@@ -214,7 +227,7 @@ void loadlists(string nouns[], string adjectives[], string adverbs[], string ani
 	}
 	infile.close();
 
-	cout << "removed doubles 1/5" << endl;
+	//cout << "removed doubles 1/5" << endl;
 
 	infile.open("adjectives.txt");
 	for (int x = 0; x < 10000; x++)
@@ -241,7 +254,7 @@ void loadlists(string nouns[], string adjectives[], string adverbs[], string ani
 		}
 	}
 	infile.close();
-	cout << "removed doubles 2/5" << endl;
+	//cout << "removed doubles 2/5" << endl;
 
 	infile.open("adverbs.txt");
 	for (int x = 0; x < 3000; x++)
@@ -268,7 +281,7 @@ void loadlists(string nouns[], string adjectives[], string adverbs[], string ani
 		}
 	}
 	infile.close();
-	cout << "removed doubles 3/5" << endl;
+	//cout << "removed doubles 3/5" << endl;
 
 	infile.open("animals.txt");
 	for (int x = 0; x < 5000; x++)
@@ -295,7 +308,7 @@ void loadlists(string nouns[], string adjectives[], string adverbs[], string ani
 		}
 	}
 	infile.close();
-	cout << "removed doubles 4/5" << endl;
+	//cout << "removed doubles 4/5" << endl;
 
 	infile.open("verbs.txt");
 	for (int x = 0; x < 12000; x++)
@@ -322,5 +335,5 @@ void loadlists(string nouns[], string adjectives[], string adverbs[], string ani
 		}
 	}
 	infile.close();
-	cout << "removed doubles 5/5" << endl;
+	//cout << "removed doubles 5/5" << endl;
 }
