@@ -1,3 +1,11 @@
+//Travis Bales
+//Griffin
+//Program 3
+//AVL tree vs BS tree
+
+
+
+
 #include<iostream>
 #include<fstream>
 #include<string>
