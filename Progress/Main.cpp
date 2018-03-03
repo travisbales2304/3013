@@ -17,8 +17,8 @@ int main()
 	int menuselect = 0;
 	while (menuselect != -1)
 	{
-		cout << "Luca's Ultimate Bot" << endl << endl;
-		cout << "Menu" << endl << "1.Select Bot" << endl << "2.Change Settings" << endl << "3.Exit" << endl;
+		cout << "Luca's" << endl << endl;
+		cout << "Menu" << endl << "1.Select" << endl << "2.Change Settings" << endl << "3.Exit" << endl;
 		cin >> menuselect;
 
 		if (menuselect == 1)
@@ -27,7 +27,7 @@ int main()
 			{
 				menuselect = 0;
 				system("cls");
-				cout << "1.Programmable Clicker" << endl << "2.Combat" << endl << "3.Woodcutting" << endl << "4.Fishing" << endl << "5.Previous Menu" << endl;
+				cout << "1.P" << endl << "2.C" << endl << "3.W" << endl << "4." << endl << "5.Previous Menu" << endl;
 				cin >> menuselect;
 				if (menuselect == 1)
 				{
