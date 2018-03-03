@@ -10,14 +10,15 @@ ofstream outfile;
 
 
 void clicker();
+void beginclicker(int a[][10]);
 
 int main()
 {
 	int menuselect = 0;
 	while (menuselect != -1)
 	{
-		cout << "Luca's" << endl << endl;
-		cout << "Menu" << endl << "1.Select" << endl << "2.Change Settings" << endl << "3.Exit" << endl;
+		cout << "Luca's Ultimate Bot" << endl << endl;
+		cout << "Menu" << endl << "1.Select Bot" << endl << "2.Change Settings" << endl << "3.Exit" << endl;
 		cin >> menuselect;
 
 		if (menuselect == 1)
@@ -26,7 +27,7 @@ int main()
 			{
 				menuselect = 0;
 				system("cls");
-				cout << "1.A" << endl << "2.C" << endl << "3.W" << endl << "4.F" << endl << "5.Previous Menu" << endl;
+				cout << "1.Programmable Clicker" << endl << "2.Combat" << endl << "3.Woodcutting" << endl << "4.Fishing" << endl << "5.Previous Menu" << endl;
 				cin >> menuselect;
 				if (menuselect == 1)
 				{
@@ -64,10 +65,6 @@ int main()
 		}
 		system("cls");
 	}
-
-
-
-
 }
 
 
@@ -90,6 +87,7 @@ void clicker()
 			outfile << cursorPos.x << " " << cursorPos.y << endl;
 			cout << "Saved" << endl;
 			Sleep(200);
+			
 		}
 		
 
@@ -112,7 +110,7 @@ void clicker()
 	while (select != -10)
 	{
 		system("cls");
-		cout << "1.Start" << endl <<"2.Check points" << endl << "3.Delete points" << endl <<"4.Main Menu" << endl;
+		cout << "1.Start Clicker" << endl <<"2.Check points" << endl << "3.Delete points" << endl <<"4.Main Menu" << endl;
 		cin >> select;
 		infile.open("SavedPoints.dat");
 		int counter = 0;
@@ -124,6 +122,11 @@ void clicker()
 				infile >> points[y][x];
 			}
 			cout << endl;
+		}
+
+		if (select == 1)
+		{
+			beginclicker(points);
 		}
 
 		if (select == 2)
@@ -157,29 +160,8 @@ void clicker()
 			cout << "Which point would you like to delete?" << endl;
 			cin >> select;
 
-			switch (select)
-			{
-			case 1: points[0][0] = 0; points[1][0] = 0;
-				break;
-			case 2: points[0][1] = 0; points[1][1] = 0;
-				break;
-			case 3: points[0][2] = 0; points[1][2] = 0;
-				break;
-			case 4: points[0][3] = 0; points[1][3] = 0;
-				break;
-			case 5: points[0][4] = 0; points[1][4] = 0;
-				break;
-			case 6: points[0][5] = 0; points[1][5] = 0;
-				break;
-			case 7: points[0][6] = 0; points[1][6] = 0;
-				break;
-			case 8: points[0][7] = 0; points[1][7] = 0;
-				break;
-			case 9: points[0][8] = 0; points[1][8] = 0;
-				break;
-			case 10: points[0][9] = 0; points[1][9] = 0;
-				break;
-			}
+			points[0][select - 1] = 0;
+			points[1][select - 1] = 0;
 			select = 0;
 		}
 
@@ -191,4 +173,17 @@ void clicker()
 
 
 	}
+}
+
+void beginclicker(int myarray[][10])
+{
+
+	for (int x = 0; x < 10; x++)
+	{
+		for (int y = 0; y < 2; y++)
+		{
+
+		}
+	}
+
 }
