@@ -1,4 +1,9 @@
-
+//Travis Bales
+//Algorithms
+//4-13-2018
+//Program 4
+//This program wills a graph with vertexes containing information about a city.
+//You then calculate the closest city to the starting city and add an edge between them.
 #include "graph.h"
 #include "windows.h"
 #include"edge_heap.h"
@@ -161,6 +166,18 @@ void filterDups(string filename, string outfile)
 }
 
 
+string city = "Lares";
+string state = "PR";
+string startingcity = city;
+string startingstate = state;
+double lat = 0;
+double lon = 0;
+ofstream outfile;
+
+int max_vertices = 3;
+int max_edges = 100;
+string list2[20000];
+vertex* holder;
 
 
 
@@ -177,72 +194,58 @@ graph Fillgraph(string filename)
 	double lat = 0;
 	double lon = 0;
 	string temp = "";
+	int counter = 1;
 
 	graph G;
-	int counter = 0;
-	while (!infile.eof())
+
+	while (infile)
 	{
-		if (counter != 5)
+
+		getline(infile, temp, ',');
+		zip = atoi(temp.c_str());
+		//cout << "zip " << zip << endl;
+		getline(infile, temp, ',');
+		lat = strtod(temp.c_str(), NULL);
+		//cout << "lat " << lat << endl;
+		getline(infile, temp, ',');
+		lon = strtod(temp.c_str(), NULL);
+		//cout << "lon " << lon << endl;
+		getline(infile, temp, ',');
+		city = temp;
+		//cout << "city " << city << endl;
+		getline(infile, temp, ',');
+		state = temp;
+		//cout << "state " << state << endl;
+		getline(infile, temp);
+		county = temp;
+		//cout << "county " << county << endl;
+		//cout << endl << endl;
+		if (lat != 0 || lon != 0 || zip != 0)
 		{
-			getline(infile, temp, ',');
-		}
-		else if (counter == 5)
-		{
-			getline(infile, temp);
-		}
-		if (counter == 0)
-		{
-			zip = stoi(temp);
-			counter++;
-		}
-		else if (counter == 1)
-		{
-			lat = stod(temp);
-			counter++;
-		}
-		else if (counter == 2)
-		{
-			lon = stod(temp);
-			counter++;
-		}
-		else if (counter == 3)
-		{
-			city = temp;
-			counter++;
-		}
-		else if (counter == 4)
-		{
-			state = temp;
-			counter++;
-		}
-		else if (counter == 5)
-		{
-			county = temp;
 			G.addVertex(city, state, lat, lon);
-			counter = 0;
 		}
-
 	}
-	infile.close();
 	return G;
+	infile.close();
 }
-// Test Driver
-int main(/*int argc, char **argv*/)
-{
 
-	string city = "San Juan";
-	string state = "PR";
-	double lat = 0;
-	double lon = 0;
-	ofstream outfile;
+
+int main(int argc, char **argv)
+{
 	outfile.open("results.txt");
-	int max_vertices = 3;
-	int max_edges = 100;
-	vector<string> list2;
-	vertex* holder;
-	vector<string>::iterator it;
-	
-	/*
+	int count = 0;
+	int totalmiles = 0;
+	int totaledges = 0;
+
+	for (int x = 0; x < 20000; x++)
+	{
+		list2[x] = "";
+	}
+
+
+
+
+
 	if (argc > 2) {
 		max_vertices = stoi(argv[1]);
 		max_edges = stoi(argv[2]);
@@ -251,7 +254,7 @@ int main(/*int argc, char **argv*/)
 		cout << "Usage: ./graph max_vertices max_edges" << endl;
 		exit(0);
 	}
-	*/
+
 	graph G = Fillgraph("filtered_cities.csv");
 	graph B = Fillgraph("filtered_cities.csv");
 
@@ -269,59 +272,17 @@ int main(/*int argc, char **argv*/)
 	}
 
 
+	//-Get's list of closest cities to starting city
+	//-connects the closest 2 cities to the starting city if applicable
+	//-starts the process over with the closest starting city
+	//
+	//
 
-
-	int count = 0;
-	int totalmiles = 0;
-	int totaledges = 0;
-
-
-	/*
-	-Get's closest starting cities and puts in a list.
-	-Checks list of starting cities and connects one if possible.
-	-resets list.
-	*/
 	for (int a = 0; a < G.vertexList.size(); a++)
 	{
 
 		//get's closest starting cities. and sets all cities found to starting city.
-		if (state == "PR")
-		{
-			double smallest = 50000, current = 60000;
-			for (int z = 0; z < G.vertexList.size(); z++)
-			{
-				int position = 0;
-				for (int y = 0; y < G.vertexList.size(); y++)
-				{
-					if (G.vertexList[y]->state == "PR")
-					{
-						if (G.vertexList[y]->city != city && G.vertexList[y]->visited2 != 1) //|| G.vertexList[y]->state != state)
-						{
-							//cout << G.vertexList[y]->city << endl;
-							current = distanceEarth(lat, lon, G.vertexList[y]->loc.lat, G.vertexList[y]->loc.lon);
-							//cout << current << endl;
-						}
-						if (current < smallest)
-						{
-							smallest = current;
-							position = y;
-
-						}
-					}
-				}
-				//cout << *G.vertexList[position] << endl;
-				smallest = 50000;
-				current = 60000;
-				//pushes cities into a list from closest to farthest
-				list2.push_back(G.vertexList[position]->city);
-				G.vertexList[position]->visited2++;
-				//system("cls");
-				//count++;
-				//cout << count << endl;
-			}
-		}
-
-		else
+		if (startingstate != "PR")
 		{
 			double smallest = 50000, current = 60000;
 			for (int z = 0; z < G.vertexList.size(); z++)
@@ -331,36 +292,71 @@ int main(/*int argc, char **argv*/)
 				{
 					if (G.vertexList[y]->city != city && G.vertexList[y]->visited2 != 1) //|| G.vertexList[y]->state != state)
 					{
-						//cout << G.vertexList[y]->city << endl;
 						current = distanceEarth(lat, lon, G.vertexList[y]->loc.lat, G.vertexList[y]->loc.lon);
-						//cout << current << endl;
 					}
 					if (current < smallest)
 					{
 						smallest = current;
 						position = y;
+
 					}
 				}
-				//cout << *G.vertexList[position] << endl;
 				smallest = 50000;
 				current = 60000;
-				//pushes cities into a list from closest to farthest
-				list2.push_back(G.vertexList[position]->city);
+				for (int f = 0; f < 20000; f++)
+				{
+					if (list2[f] == "")
+					{
+						list2[f] = G.vertexList[position]->city;
+						break;
+					}
+				}
 				G.vertexList[position]->visited2++;
-				//system("cls");
-				//count++;
-				//cout << count << endl;
 			}
+		}
 
+		if (startingstate == "PR")
+		{
+			double smallest = 50000, current = 60000;
+			for (int z = 0; z < G.vertexList.size(); z++)
+			{
+				int position = 0;
+				for (int y = 0; y < G.vertexList.size(); y++)
+				{
+					if (G.vertexList[y]->city != city && G.vertexList[y]->visited2 != 1) //|| G.vertexList[y]->state != state)
+					{
+						
+						current = distanceEarth(lat, lon, G.vertexList[y]->loc.lat, G.vertexList[y]->loc.lon);
+						
+					}
+					if (current < smallest && G.vertexList[y]->state == "PR")
+					{
+						smallest = current;
+						position = y;
 
+					}
+				}
+				
+				smallest = 50000;
+				current = 60000;
+				
+				for (int f = 0; f < 20000; f++)
+				{
+					if (list2[f] == "")
+					{
+						list2[f] = G.vertexList[position]->city;
+						break;
+					}
+				}
+				G.vertexList[position]->visited2++;
+			}
 		}
 
 
 
-
-
-
 		//Resets visited2 to 0 on all vertex;
+		//visited2 is a just a counter to see if the vertex has been looked at already
+		//visited1 is the amount of edges connected to a vertex
 		for (int j = 0; j < G.vertexList.size(); j++)
 		{
 			G.vertexList[j]->visited2 = 0;
@@ -371,28 +367,7 @@ int main(/*int argc, char **argv*/)
 		}
 
 		//removes the last position on the list because it's the starting city?
-		list2.pop_back();
-
-
-		//TEST
-		/*
-
-
-		for (it = list2.begin(); it != list2.end(); it++)
-		{
-			cout << *it << endl;
-		}
-
-
-
-		for (int j = 0; j < B.vertexList.size(); j++)
-		{
-		cout << B.vertexList[j]->city << endl;
-		}
-
-
-		*/
-		
+		//list2.pop_back();
 
 		//Finds the position of the starting city
 		int position2 = -1;
@@ -406,46 +381,39 @@ int main(/*int argc, char **argv*/)
 
 
 
-		/*
-		-Takes the list of cities arranged by distance to the started city
-		and connects the starting city to the two closest applicable cities
-		-resets the starting city to the city it was connected to
-		*/
-		for (it = list2.begin(); it != list2.end(); it++)
+
+		//-Takes the list of cities arranged by distance to the started city
+		//and connects the starting city to the two closest applicable cities
+		//-resets the starting city to the city it was connected to
+
+		for (int b = 0; b < 20000; b++)
 		{
-			//cout << "the iterator is at " << *it << endl;
+			
 			int position = -1;
 			for (int x = 0; x < B.vertexList.size(); x++)
 			{
-				if (B.vertexList[x]->city == *it && B.vertexList[x]->visited < 2)
+				if (B.vertexList[x]->city == list2[b] && B.vertexList[x]->visited < 2)
 				{
 					position = x;
 				}
-		
 			}
 			if (position != -1)
 			{
 				double d = distanceEarth(B.vertexList[position2]->loc.lat, B.vertexList[position2]->loc.lon, B.vertexList[position]->loc.lat, B.vertexList[position]->loc.lon);
-				totalmiles += d;
-				totaledges++;
-				//cout << totaledges << " edges" << endl;
-				//cout << totalmiles << " miles" << endl;
 				B.addEdge(position2, position, (int)d, true);
+				totaledges++;
+				totalmiles += d;
 				B.vertexList[position]->visited++;
 				B.vertexList[position2]->visited++;
-				//cout << city << " , ";
+				
 				city = B.vertexList[position]->city;
 				state = B.vertexList[position]->state;
-				//cout << "City change " << city << endl;
-				
 
 			}
-			it++;
-
-
+			b++;
 			for (int x = 0; x < B.vertexList.size(); x++)
 			{
-				if (B.vertexList[x]->city == *it && B.vertexList[x]->visited < 2)
+				if (B.vertexList[x]->city == list2[b] && B.vertexList[x]->visited < max_vertices)
 				{
 					position = x;
 				}
@@ -454,16 +422,12 @@ int main(/*int argc, char **argv*/)
 			{
 				double d = distanceEarth(B.vertexList[position2]->loc.lat, B.vertexList[position2]->loc.lon, B.vertexList[position]->loc.lat, B.vertexList[position]->loc.lon);
 				B.addEdge(position2, position, (int)d, true);
-				totalmiles += d;
 				totaledges++;
-				//cout << totaledges << " edges" << endl;
-				//cout << totalmiles << " miles" << endl;
+				totalmiles += d;
 				B.vertexList[position]->visited++;
 				B.vertexList[position2]->visited++;
-				//cout << city << " , ";
 				city = B.vertexList[position]->city;
 				state = B.vertexList[position]->state;
-				//cout << "City change " << city << endl;
 				break;
 
 			}
@@ -472,12 +436,21 @@ int main(/*int argc, char **argv*/)
 
 
 		//Resets the list of cities back to nothing.
-		for (int z = 0; z < list2.size(); z++)
+		for (int z = 0; z <20000; z++)
 		{
-			list2.clear();
+			list2[z] = "";
 		}
+
+
+
 	}
-outfile << B.graphViz(false) << endl;
+
+
+	cout << startingcity << ", " << startingstate << endl;
+	cout << totalmiles << " miles " << totaledges << " edges " << endl;
+
+
+
 	outfile << B.graphViz(false);
 	system("pause");
 }
