@@ -1,1 +1,10 @@
-
+Lebanon, KS
+217394 miles 21765 edges
+Miami, FL
+198833 miles 22670 edges
+Dallas, TX
+145356 miles 24222 edges
+Boston, MA
+174345 miles 20032 edges
+San Juan, PR
+4523 miles 370 edges
