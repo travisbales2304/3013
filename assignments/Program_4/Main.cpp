@@ -166,8 +166,8 @@ void filterDups(string filename, string outfile)
 }
 
 
-string city = "Lares";
-string state = "PR";
+string city = "Lebanon";
+string state = "KS";
 string startingcity = city;
 string startingstate = state;
 double lat = 0;
